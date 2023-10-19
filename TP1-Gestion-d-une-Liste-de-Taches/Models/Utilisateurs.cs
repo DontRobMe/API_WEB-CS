@@ -7,15 +7,4 @@ public class Utilisateurs
 
     public static long _nextUserId = 1;
     public static readonly List<Utilisateurs> _users = new List<Utilisateurs>();
-    
-    public void CreateUser(string userName)
-    {
-        var user = new Utilisateurs
-        {
-            id = _nextUserId,
-            Nom = userName
-        };
-        _users.Add(user);
-        _nextUserId++;
-    }
 }

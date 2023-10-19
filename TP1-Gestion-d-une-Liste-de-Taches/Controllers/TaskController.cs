@@ -37,6 +37,7 @@ public class TaskController : ControllerBase
         try
         {
             newTask.id = Taches._nextTaskId;
+            newTask.Statut = false;
             Taches._tasks.Add(newTask);
             Taches._nextTaskId++;
             return Ok(newTask);
@@ -46,8 +47,7 @@ public class TaskController : ControllerBase
             return BadRequest($"Erreur : {ex.Message}");
         }
     }
-
-    // Delete a user by ID via HTTP DELETE
+    
     [HttpDelete("delete-user/{userId}")]
     public IActionResult DeleteUser(long userId)
     {
@@ -61,8 +61,7 @@ public class TaskController : ControllerBase
         // ReSharper disable once HeapView.BoxingAllocation
         return Ok($"Utilisateur avec l'ID {userId} supprimé.");
     }
-
-    // Delete a task by ID via HTTP DELETE
+    
     [HttpDelete("delete-task/{taskId}")]
     public IActionResult DeleteTask(long taskId)
     {
@@ -76,22 +75,19 @@ public class TaskController : ControllerBase
         // ReSharper disable once HeapView.BoxingAllocation
         return Ok($"Tâche avec l'ID {taskId} supprimée.");
     }
-
-    // Retrieve all users via HTTP GET
+    
     [HttpGet("users")]
     public IActionResult GetUsers()
     {
         return Ok(Utilisateurs._users);
     }
-
-    // Retrieve all tasks via HTTP GET
+    
     [HttpGet("tasks")]
     public IActionResult GetTasks()
     {
         return Ok(Taches._tasks);
     }
-
-    // Retrieve a user by ID via HTTP GET
+    
     [HttpGet("users/{userId}")]
     public IActionResult GetUserById(long userId)
     {
@@ -103,8 +99,7 @@ public class TaskController : ControllerBase
 
         return Ok(user);
     }
-
-    // Retrieve a task by ID via HTTP GET
+    
     [HttpGet("tasks/{taskId}")]
     public IActionResult GetTaskById(long taskId)
     {
@@ -116,8 +111,7 @@ public class TaskController : ControllerBase
 
         return Ok(task);
     }
-
-    // Update user information via HTTP PUT
+    
     [HttpPut("update-user/{userId}")]
     public IActionResult UpdateUser(long userId, [FromBody] Utilisateurs updatedUser)
     {
@@ -127,11 +121,10 @@ public class TaskController : ControllerBase
             return NotFound("Utilisateur introuvable");
         }
 
-        user.Nom = updatedUser.Nom; // Mettre à jour le nom de l'utilisateur
+        user.Nom = updatedUser.Nom;
         return Ok(user);
     }
-
-    // Update task status via HTTP PATCH
+    
     [HttpPatch("update-task-status/{taskId}")]
     public IActionResult UpdateTaskStatus(long taskId, [FromBody] bool isDone)
     {
