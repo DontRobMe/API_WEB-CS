@@ -81,7 +81,7 @@ public class TaskController : ControllerBase
     }
     
     [HttpPatch("update-task-status/{taskId}")]
-    public IActionResult UpdateTaskStatus(long taskId, [FromBody] bool isDone)
+    public IActionResult UpdateTaskCompleted(long taskId, [FromBody] bool isDone)
     {
         var task = Taches._tasks.FirstOrDefault(t => t.id == taskId);
         if (task == null)
