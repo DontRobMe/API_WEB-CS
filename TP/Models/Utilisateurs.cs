@@ -1,4 +1,4 @@
-﻿namespace TP1_Gestion_d_une_Liste_de_Taches.Models;
+﻿namespace TP.Models;
 
 public class Utilisateurs
 {

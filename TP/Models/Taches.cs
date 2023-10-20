@@ -1,10 +1,10 @@
-﻿namespace TP1_Gestion_d_une_Liste_de_Taches.Models;
+﻿namespace TP.Models;
 
 public class Taches 
 {
     public long id { get; set; }
     public string Name { get; set; }
-    public bool Statut { get; set; }
+    public bool completed { get; set; }
     public long UtilisateurId { get; set; }
 
 

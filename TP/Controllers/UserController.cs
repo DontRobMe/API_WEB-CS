@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using TP1_Gestion_d_une_Liste_de_Taches.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using TP.Models;
 
-namespace Tp1_Gestion_d_une_liste_de_taches.Controllers
+namespace TP.Controllers
 {
     [ApiController]
     [Route("[controller]")]

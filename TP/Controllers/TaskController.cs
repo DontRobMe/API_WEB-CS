@@ -1,8 +1,8 @@
-﻿using TP1_Gestion_d_une_Liste_de_Taches.Models;
-using Microsoft.AspNetCore.Mvc;
-using Tp1_Gestion_d_une_liste_de_taches.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using TP.Models;
 
-namespace TP1_Gestion_d_une_Liste_de_Taches.Controllers;
+namespace TP.Controllers;
+
 [ApiController]
 [Route("[controller]")]
 public class TaskController : ControllerBase
@@ -34,7 +34,7 @@ public class TaskController : ControllerBase
             }
 
             newTask.id = Taches._nextTaskId;
-            newTask.Statut = false;
+            newTask.completed = false;
             Taches._tasks.Add(newTask);
             Taches._nextTaskId++;
 
@@ -79,9 +79,7 @@ public class TaskController : ControllerBase
         }
         return Ok(task);
     }
-
-  
-
+    
     [HttpPatch("update-task-status/{taskId}")]
     public IActionResult UpdateTaskStatus(long taskId, [FromBody] bool isDone)
     {
@@ -90,7 +88,7 @@ public class TaskController : ControllerBase
         {
             return NotFound("Tâche introuvable");
         }
-        task.Statut = isDone;
+        task.completed = isDone;
         return Ok(task);
     }
 }
