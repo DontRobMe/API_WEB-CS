@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TP.Models;
-using TP.Models;
 
 namespace TP_CS.Controllers
 {
