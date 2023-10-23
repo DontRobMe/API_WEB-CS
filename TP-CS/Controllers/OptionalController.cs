@@ -12,8 +12,7 @@ public class OptionnalsController : ControllerBase
     {
         _logger1 = logger;
     }
-
-    //creer un trieur de toute les tache en fonction de completed
+    
     [HttpGet("tasks/completed/{completed}", Name = "GetTasksByCompleted")]
     public IActionResult GetTasksByCompleted(bool completed)
     {

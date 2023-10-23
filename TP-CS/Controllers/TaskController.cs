@@ -49,6 +49,10 @@ public class TaskController : ControllerBase
     [HttpGet("tasks")]
     public IActionResult GetTasks()
     {
+        if (Taches._tasks.Count == 0)
+        {
+            return NotFound("Aucune tâche n'a été trouvée.");
+        }
         return Ok(Taches._tasks);
     }
 
@@ -89,7 +93,11 @@ public class TaskController : ControllerBase
         {
             return NotFound("Tâche introuvable");
         }
-        task.completed= isDone;
+        if (task.completed == isDone)
+        {
+            return BadRequest("La tâche est déjà completée.");
+        }
+        task.completed = true;
         return Ok(task);
     }
 }

@@ -41,6 +41,10 @@ namespace TP_CS.Controllers
         [HttpGet("users")]
         public IActionResult GetUsers()
         {
+            if(Utilisateurs._users.Count == 0)
+            {
+                return NotFound("Aucun utilisateur");
+            }
             return Ok(Utilisateurs._users);
         }
 
