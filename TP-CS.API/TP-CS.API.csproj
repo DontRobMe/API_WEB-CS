@@ -11,4 +11,14 @@
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="C:\Users\Franc\RiderProjects\TP-CS\TP-CS.Business\TP-CS.Business.csproj" />
+        <ProjectReference Include="C:\Users\Franc\RiderProjects\TP-CS\TP-CS.Data\TP-CS.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TP-CS.Business\TP-CS.Business.csproj" />
+    </ItemGroup>
+
 </Project>

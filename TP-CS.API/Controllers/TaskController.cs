@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
+using Task = TP_CS.Business.Models.Task;
 
 namespace TP_CS.Controllers
 {
@@ -23,10 +24,6 @@ namespace TP_CS.Controllers
         public IActionResult GetTasks()
         {
             var tasks = _taskService.GetTasks();
-            if (tasks == null || !tasks.Any())
-            {
-                return NotFound("Aucune tâche trouvée.");
-            }
             return Ok(tasks);
         }
 

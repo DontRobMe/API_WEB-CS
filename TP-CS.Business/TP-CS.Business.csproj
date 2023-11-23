@@ -1,72 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
-            Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+<Project Sdk="Microsoft.NET.Sdk">
+
     <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{BFBA3570-FEEC-4E67-B15C-4F9C12FC19F5}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <TargetFramework>net7.0</TargetFramework>
         <RootNamespace>TP_CS.Business</RootNamespace>
-        <AssemblyName>TP_CS.Business</AssemblyName>
-        <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-        <LangVersion>default</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>TP-CS.Business</AssemblyName>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="System"/>
-        <Reference Include="System.Core"/>
-        <Reference Include="System.Data"/>
-        <Reference Include="System.Xml"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="IRepositories\ITaskRepository.cs" />
-        <Compile Include="IRepositories\IUserRepository.cs" />
-        <Compile Include="IServices\ITachesService.cs" />
-        <Compile Include="IServices\IUtilisateursService.cs" />
-        <Compile Include="Models\BusinessResult.cs" />
-        <Compile Include="Models\Task.cs" />
-        <Compile Include="Models\User.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="Repositories\TaskRepository.cs" />
-        <Compile Include="Repositories\UserRepository.cs" />
-        <Compile Include="Services\TachesService.cs" />
-        <Compile Include="Services\UtilisateurService.cs" />
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
-        
-    <ItemGroup>
-        <ProjectReference Include="..\TP_CS.Data\TP_CS.Data.csproj">
-            <Project>{0F6F6F6F-6F6F-6F6F-6F6F-6F6F6F6F6F6F}</Project>
-            <Name>TP_CS.Data</Name>
-        </ProjectReference>
-    </ItemGroup>
-    
+
 </Project>

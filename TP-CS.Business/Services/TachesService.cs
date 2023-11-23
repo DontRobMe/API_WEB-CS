@@ -1,9 +1,6 @@
-﻿#nullable enable
-using System;
-using System.Collections.Generic;
-using TP_CS.Business.IServices;
+﻿using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
-using System.Linq;
+using Task = TP_CS.Business.Models.Task;
 
 namespace TP_CS.Business.Services
 {
@@ -35,7 +32,7 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                Task? task = _tasks.Find(t => t.id == id);
+                Task? task = _tasks.Find(t => t.Id == id);
                 if (task != null)
                 {
                     return BusinessResult<Task?>.FromSuccess(task);
@@ -57,7 +54,7 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                item.id = ++Task._nextTaskId;
+                item.Id = ++Task._nextTaskId;
                 _tasks.Add(item);
                 return BusinessResult<Task>.FromSuccess(item);
             }
@@ -72,11 +69,11 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                Task? existingTask = _tasks.Find(t => t.id == id);
+                Task? existingTask = _tasks.Find(t => t.Id == id);
                 if (existingTask != null)
                 {
                     existingTask.Name = model.Name;
-                    existingTask.completed = model.completed;
+                    existingTask.Completed = model.Completed;
                     existingTask.UtilisateurId = model.UtilisateurId;
 
                     return BusinessResult<Task>.FromSuccess(existingTask);
@@ -98,7 +95,7 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                Task? taskToRemove = _tasks.Find(t => t.id == id);
+                Task? taskToRemove = _tasks.Find(t => t.Id == id);
                 if (taskToRemove != null)
                 {
                     _tasks.Remove(taskToRemove);
@@ -121,7 +118,7 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                var tasks = _tasks.Where(t => t.completed == completed).ToList();
+                var tasks = _tasks.Where(t => t.Completed == completed).ToList();
                 return BusinessResult<List<Task>>.FromSuccess(tasks);
             }
             catch (Exception ex)
@@ -152,7 +149,7 @@ namespace TP_CS.Business.Services
             {
                 var matchingTasks = _tasks
                     .Where(task =>
-                        task.Name != null && task.Name.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0
+                        task.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase)
                     )
                     .ToList();
 

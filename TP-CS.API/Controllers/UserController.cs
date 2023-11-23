@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
 
@@ -23,10 +21,6 @@ namespace TP_CS.Controllers
         public IActionResult GetUsers()
         {
             var users = _userService.GetUsers();
-            if (users == null || !users.Any())
-            {
-                return NotFound("Aucun utilisateur trouvé.");
-            }
             return Ok(users);
         }
 

@@ -1,13 +1,9 @@
-﻿#nullable enable
-namespace TP_CS.Business.Models
+﻿namespace TP_CS.Business.Models
 {
-    // Résultat d'une action de service
     public class BusinessResult
     {
-        // Inqiue le succès de l'action
         public bool IsSuccess { get; set; }
 
-        // Si il y a eu une erreur métier, contient le détail de l'erreur
         public BusinessError? Error { get; set; }
 
         public BusinessResult()
@@ -19,13 +15,11 @@ namespace TP_CS.Business.Models
             Error = error;
         }
 
-        // Méthode utilitaire type "factory" pour rapidement générer une retour de type succès
         public static BusinessResult FromSuccess()
         {
             return new BusinessResult(true, null);
         }
 
-        // Méthode utilitaire type "factory" pour rapidement générer une retour de type erreur
         public static BusinessResult FromError(string errorMessage, BusinessErrorReason reason)
         {
             BusinessError error = new(errorMessage, reason);
@@ -33,10 +27,8 @@ namespace TP_CS.Business.Models
         }
     }
 
-    // Résultat d'une action de service avec retour
     public class BusinessResult<T> : BusinessResult // Hérite du résultat sans retour
     {
-        // Retour générique pouvant être null
         public T? Result { get; set; }
 
         public BusinessResult(bool isSuccess, BusinessError? error, T? result = default) : base(isSuccess, error)

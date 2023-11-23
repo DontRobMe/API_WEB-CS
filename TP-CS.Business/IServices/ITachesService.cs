@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using TP_CS.Business.Models;
+﻿using TP_CS.Business.Models;
+using Task = TP_CS.Business.Models.Task;
 
 namespace TP_CS.Business.IServices
 {
@@ -7,7 +7,7 @@ namespace TP_CS.Business.IServices
     {
         public BusinessResult<List<Task>> GetTasks();
 
-        public BusinessResult<Task> GetTaskById(long id);
+        public BusinessResult<Task?> GetTaskById(long id);
 
         public BusinessResult<Task> CreateTask(Task item);
 

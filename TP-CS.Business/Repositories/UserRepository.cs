@@ -9,14 +9,14 @@ namespace TP_CS.Business.Repositories
     {
         public void CreateUser(User newUser)
         {
-            newUser.id = User._nextUserId;
+            newUser.Id = User._nextUserId;
             User._users.Add(newUser);
             User._nextUserId++;
         }
 
         public void DeleteUser(long userId)
         {
-            var user = User._users.FirstOrDefault(u => u.id == userId);
+            var user = User._users.FirstOrDefault(u => u.Id == userId);
             if (user != null)
             {
                 User._users.Remove(user);
@@ -34,7 +34,7 @@ namespace TP_CS.Business.Repositories
 
         public User GetUserById(long userId)
         {
-            var user = User._users.FirstOrDefault(u => u.id == userId);
+            var user = User._users.FirstOrDefault(u => u.Id == userId);
             if (user == null)
             {
                 throw new InvalidOperationException("Utilisateur introuvable");
@@ -44,7 +44,7 @@ namespace TP_CS.Business.Repositories
 
         public void UpdateUser(long userId, User updatedUser)
         {
-            var user = User._users.FirstOrDefault(u => u.id == userId);
+            var user = User._users.FirstOrDefault(u => u.Id == userId);
             if (user != null)
             {
                 user.Nom = updatedUser.Nom;

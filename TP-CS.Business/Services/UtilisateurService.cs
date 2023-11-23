@@ -32,7 +32,7 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                User? user = _users.Find(u => u.id == id);
+                User? user = _users.Find(u => u.Id == id);
                 if (user != null)
                 {
                     return BusinessResult<User?>.FromSuccess(user);
@@ -52,7 +52,7 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                item.id = ++User._nextUserId;
+                item.Id = ++User._nextUserId;
                 _users.Add(item);
                 return BusinessResult<User>.FromSuccess(item);
             }
@@ -66,7 +66,7 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                User? existingUser = _users.Find(u => u.id == id);
+                User? existingUser = _users.Find(u => u.Id == id);
                 if (existingUser != null)
                 {
                     existingUser.Nom = model.Nom;
@@ -87,7 +87,7 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                User? userToRemove = _users.Find(u => u.id == id);
+                User? userToRemove = _users.Find(u => u.Id == id);
                 if (userToRemove != null)
                 {
                     _users.Remove(userToRemove);

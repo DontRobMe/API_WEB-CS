@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TP_CS.Business.Models;
+﻿using Task = TP_CS.Business.Models.Task;
 
 namespace TP_CS.Business.IRepositories
 {
