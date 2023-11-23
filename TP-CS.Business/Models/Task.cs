@@ -1,6 +1,8 @@
-﻿namespace TP.Models;
+﻿using System.Collections.Generic;
 
-public class Taches 
+namespace TP_CS.Business.Models;
+
+public class Task 
 {
     public long id { get; set; }
     public string Name { get; set; }
@@ -9,6 +11,7 @@ public class Taches
 
 
     public static long _nextTaskId = 1;
-    public static readonly List<Taches> _tasks = new List<Taches>();
+    
+    public static readonly List<Task> _tasks = new List<Task>();
     
 }
