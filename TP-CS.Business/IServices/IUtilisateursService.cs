@@ -5,9 +5,9 @@ namespace TP_CS.Business.IServices
 {
     public interface IUtilisateursService
     {
-        public BusinessResult<List<User>> GetUsers();
+        public BusinessResult<IEnumerable<User>> GetUsers();
 
-        public BusinessResult<User> GetUserById(long id);
+        public BusinessResult<User?> GetUserById(long id);
 
         public BusinessResult<User> CreateUser(User item);
 

@@ -43,7 +43,7 @@ namespace TP_CS.Controllers
             {
                 return BadRequest("Erreur lors de la création de l'utilisateur.");
             }
-            return CreatedAtRoute("GetUserById", new { id = createdUser.Data.id }, createdUser.Data);
+            return CreatedAtRoute("GetUserById", new { id = user.Id }, user);
         }
 
         [HttpPut("{id:long}")]

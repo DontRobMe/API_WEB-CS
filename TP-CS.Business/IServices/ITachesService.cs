@@ -1,21 +1,21 @@
 ﻿using TP_CS.Business.Models;
-using Task = TP_CS.Business.Models.Task;
+using UserTask = TP_CS.Business.Models.UserTask;
 
 namespace TP_CS.Business.IServices
 {
     public interface ITacheService
     {
-        public BusinessResult<List<Task>> GetTasks();
+        public BusinessResult<IEnumerable<UserTask>> GetTasks();
 
-        public BusinessResult<Task?> GetTaskById(long id);
+        public BusinessResult<UserTask?> GetTaskById(long id);
 
-        public BusinessResult<Task> CreateTask(Task item);
+        public BusinessResult<UserTask> CreateTask(UserTask item);
 
-        public BusinessResult<Task> UpdateTaskStatus(long id, Task model);
+        public BusinessResult<UserTask> UpdateTaskStatus(long id, UserTask model);
 
         public BusinessResult DeleteTask(long id);
-        BusinessResult<List<Task>> GetTasksByCompleted(bool completed);
-        BusinessResult<List<Task>> GetTasksByUserId(long userId);
-        BusinessResult<List<Task>> SearchTasks(string keyword);
+        BusinessResult<List<UserTask>> GetTasksByCompleted(bool completed);
+        BusinessResult<IEnumerable<UserTask>> GetTasksByUserId(long userId);
+        BusinessResult<List<UserTask>> SearchTasks(string keyword);
     }
 }

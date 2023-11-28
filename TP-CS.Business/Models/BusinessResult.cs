@@ -3,7 +3,6 @@
     public class BusinessResult
     {
         public bool IsSuccess { get; set; }
-
         public BusinessError? Error { get; set; }
 
         public BusinessResult()
@@ -45,6 +44,11 @@
         {
             BusinessError error = new(errorMessage, reason);
             return new BusinessResult<T>(false, error, result);
+        }
+
+        public static BusinessResult<User> FromSuccess(BusinessResult<User> updatedUser)
+        {
+            throw new NotImplementedException();
         }
     }
 

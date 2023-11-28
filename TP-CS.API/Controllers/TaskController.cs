@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
-using Task = TP_CS.Business.Models.Task;
+using UserTask = TP_CS.Business.Models.UserTask;
 
 namespace TP_CS.Controllers
 {
@@ -35,28 +35,28 @@ namespace TP_CS.Controllers
             {
                 return NotFound($"Tâche avec l'ID {id} introuvable.");
             }
+
             return Ok(task);
         }
 
         [HttpPost]
-        public IActionResult CreateTask(Task task)
+        public IActionResult CreateTask(UserTask task)
         {
-            var createdTask = _taskService.CreateTask(task);
-            if (createdTask == null)
-            {
-                return BadRequest("Erreur lors de la création de la tâche.");
-            }
-            return CreatedAtRoute("GetTaskById", new { id = createdTask.Data.id }, createdTask.Data);
+            var createdTaskResult = _taskService.CreateTask(task);
+
+            return CreatedAtRoute("GetTaskById", new { id = task.Id }, task);
         }
 
+
         [HttpPut("{id}")]
-        public IActionResult UpdateTask(long id, Task task)
+        public IActionResult UpdateTask(long id, UserTask task)
         {
             var updatedTask = _taskService.UpdateTaskStatus(id, task);
             if (updatedTask == null)
             {
                 return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
             }
+
             return Ok(updatedTask);
         }
 
@@ -68,6 +68,7 @@ namespace TP_CS.Controllers
             {
                 return NotFound($"Tâche avec l'ID {id} introuvable pour la suppression.");
             }
+
             return NoContent();
         }
     }

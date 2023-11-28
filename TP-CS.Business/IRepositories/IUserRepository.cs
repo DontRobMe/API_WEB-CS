@@ -5,14 +5,14 @@ namespace TP_CS.Business.IRepositories
 {
     public interface IUserRepository
     {
-        void CreateUser(User newUser);
+        User CreateUser(User newUser);
         
         void DeleteUser(long userId);
         
-        IEnumerable<User> GetUsers();
+        IEnumerable<User>? GetUsers();
         
         User GetUserById(long userId);
         
-        void UpdateUser(long userId, User updatedUser); 
+        BusinessResult<User> UpdateUser(long userId, User updatedUser);
     }
 }

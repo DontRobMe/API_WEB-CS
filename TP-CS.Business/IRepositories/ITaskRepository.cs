@@ -1,23 +1,24 @@
-﻿using Task = TP_CS.Business.Models.Task;
+﻿using TP_CS.Business.Models;
+using UserTask = TP_CS.Business.Models.UserTask;
 
 namespace TP_CS.Business.IRepositories
 {
     public interface ITaskRepository
     {
-        void CreateTask(Task newTask);
+        void CreateTask(UserTask newTask);
         
-        IEnumerable<Task> GetTasks();
+        IEnumerable<UserTask>? GetTasks();
         
         void DeleteTask(long taskId);
         
-        Task GetTaskById(long taskId);
+        UserTask GetTaskById(long taskId);
         
         void UpdateTaskStatus(long taskId, bool isDone);
         
-        IEnumerable<Task> GetTasksByCompleted(bool completed);
+        IEnumerable<UserTask>? GetTasksByCompleted(bool completed);
         
-        IEnumerable<Task> GetTasksByUserId(long userId);
+        IEnumerable<UserTask>? GetTasksByUserId(long userId);
         
-        IEnumerable<Task> SearchTasks(string keyword);
+        IEnumerable<UserTask>? SearchTasks(string keyword);
     }
 }

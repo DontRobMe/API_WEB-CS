@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
+using TP_CS.Business.IRepositories;
 using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
 
@@ -9,22 +10,25 @@ namespace TP_CS.Business.Services
 {
     public class UtilisateurService : IUtilisateursService
     {
-        private readonly List<User> _users;
+        private readonly IUserRepository _userRepository;
 
-        public UtilisateurService(List<User> users)
+        public UtilisateurService(IUserRepository userRepository)
         {
-            _users = users ?? throw new ArgumentNullException(nameof(users));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
+        //refaire toutes les fonctions pour utiliser db et pas memory
 
-        public BusinessResult<List<User>> GetUsers()
+        public BusinessResult<IEnumerable<User>> GetUsers()
         {
             try
             {
-                return BusinessResult<List<User>>.FromSuccess(_users);
+                var users = _userRepository.GetUsers();
+                return BusinessResult<IEnumerable<User>>.FromSuccess(users);
             }
             catch (Exception ex)
             {
-                return BusinessResult<List<User>>.FromError("Erreur lors de la récupération des utilisateurs.", BusinessErrorReason.BusinessRule);
+                return BusinessResult<IEnumerable<User>>.FromError("Erreur lors de la récupération des utilisateurs.",
+                    BusinessErrorReason.BusinessRule);
             }
         }
 
@@ -32,15 +36,8 @@ namespace TP_CS.Business.Services
         {
             try
             {
-                User? user = _users.Find(u => u.Id == id);
-                if (user != null)
-                {
-                    return BusinessResult<User?>.FromSuccess(user);
-                }
-                else
-                {
-                    return BusinessResult<User?>.FromError($"L'utilisateur avec l'ID {id} n'a pas été trouvé.", BusinessErrorReason.NotFound);
-                }
+                var user = _userRepository.GetUserById(id);
+                return BusinessResult<User?>.FromSuccess(user);
             }
             catch (Exception ex)
             {
@@ -48,12 +45,12 @@ namespace TP_CS.Business.Services
             }
         }
 
+
         public BusinessResult<User> CreateUser(User item)
         {
             try
             {
-                item.Id = ++User._nextUserId;
-                _users.Add(item);
+                _userRepository.CreateUser(item);
                 return BusinessResult<User>.FromSuccess(item);
             }
             catch (Exception ex)
@@ -62,15 +59,16 @@ namespace TP_CS.Business.Services
             }
         }
 
+
         public BusinessResult<User> UpdateUser(long id, User model)
         {
             try
             {
-                User? existingUser = _users.Find(u => u.Id == id);
-                if (existingUser != null)
+                BusinessResult<User> updatedUser = _userRepository.UpdateUser(id, model);
+
+                if (updatedUser != null)
                 {
-                    existingUser.Nom = model.Nom;
-                    return BusinessResult<User>.FromSuccess(existingUser);
+                    return BusinessResult<User>.FromSuccess(updatedUser);
                 }
                 else
                 {
@@ -83,25 +81,24 @@ namespace TP_CS.Business.Services
             }
         }
 
+
+
+
+
+
         public BusinessResult DeleteUser(long id)
         {
             try
             {
-                User? userToRemove = _users.Find(u => u.Id == id);
-                if (userToRemove != null)
-                {
-                    _users.Remove(userToRemove);
+                    _userRepository.DeleteUser(id);
                     return BusinessResult.FromSuccess();
-                }
-                else
-                {
-                    return BusinessResult.FromError($"L'utilisateur avec l'ID {id} n'a pas été trouvé.", BusinessErrorReason.NotFound);
-                }
             }
             catch (Exception ex)
             {
-                return BusinessResult.FromError($"Erreur lors de la suppression de l'utilisateur avec l'ID {id}.", BusinessErrorReason.BusinessRule);
+                return BusinessResult.FromError($"Erreur lors de la suppression de l'utilisateur avec l'ID {id}.",
+                    BusinessErrorReason.BusinessRule);
             }
         }
+
     }
 }
