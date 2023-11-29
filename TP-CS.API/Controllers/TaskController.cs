@@ -71,5 +71,26 @@ namespace TP_CS.Controllers
 
             return NoContent();
         }
+        
+        [HttpGet("completed/{completed:bool}")]
+        public IActionResult GetTasksByCompleted(bool completed)
+        {
+            var tasks = _taskService.GetTasksByCompleted(completed);
+            return Ok(tasks);
+        }
+        
+        [HttpGet("user/{userId:long}")]
+        public IActionResult GetTasksByUserId(long userId)
+        {
+            var tasks = _taskService.GetTasksByUserId(userId);
+            return Ok(tasks);
+        }
+        
+        [HttpGet("search/{keyword}")]
+        public IActionResult SearchTasks(string keyword)
+        {
+            var tasks = _taskService.SearchTasks(keyword);
+            return Ok(tasks);
+        }
     }
 }

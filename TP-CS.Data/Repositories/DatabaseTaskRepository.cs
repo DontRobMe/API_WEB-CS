@@ -105,12 +105,12 @@ namespace TP_CS.Data.Repositories
 
         public IEnumerable<UserTask>? GetTasksByUserId(long userId)
         {
-            return _dbContext.Tasks?.Where(t => t.Id == userId).ToList();
+            return _dbContext.Tasks?.Where(t => t.UserId == userId).ToList();
         }
 
         public IEnumerable<UserTask>? SearchTasks(string keyword)
         {
-            return _dbContext.Tasks?.Where(task => task.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            return _dbContext.Tasks?.AsEnumerable().Where(task => task.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
     }

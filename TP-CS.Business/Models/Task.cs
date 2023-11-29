@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public bool Completed { get; set; }
 
-        public long UserId { get; set; } // Reference to User Id
+        public long UserId { get; set; }
     }
 }
