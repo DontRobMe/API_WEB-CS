@@ -13,7 +13,7 @@ namespace TP_CS.Business.IRepositories
         
         UserTask GetTaskById(long taskId);
         
-        void UpdateTaskStatus(long taskId, bool isDone);
+        BusinessResult<UserTask> UpdateTaskStatus(long taskId, bool isDone);
         
         IEnumerable<UserTask>? GetTasksByCompleted(bool completed);
         

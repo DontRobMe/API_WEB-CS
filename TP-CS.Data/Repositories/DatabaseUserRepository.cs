@@ -15,11 +15,21 @@ namespace TP_CS.Data.Repositories
 
         public User CreateUser(User newUser)
         {
-            _dbContext.Users?.Add(newUser);
-            _dbContext.SaveChanges(); // Enregistrer les modifications dans la base de données pour obtenir l'ID généré
-            return newUser;
+            try
+            {
+                _dbContext.Users?.Add(newUser);
+                _dbContext.SaveChanges();
+                // Log successful user creation
+                Console.WriteLine("Utilisateur ajouté à la base de données !");
+                return newUser;
+            }
+            catch (Exception ex)
+            {
+                // Log any exceptions that occur during user creation
+                Console.WriteLine($"Erreur lors de l'ajout de l'utilisateur à la base de données : {ex.Message}");
+                throw; // Rethrow the exception to handle it in the service layer
+            }
         }
-
 
         public void DeleteUser(long userId)
         {
@@ -27,6 +37,7 @@ namespace TP_CS.Data.Repositories
             if (user != null)
             {
                 _dbContext.Users?.Remove(user);
+                _dbContext.SaveChanges();
             }
         }
 

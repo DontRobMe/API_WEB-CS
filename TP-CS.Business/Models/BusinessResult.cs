@@ -6,7 +6,8 @@
         public BusinessError? Error { get; set; }
 
         public BusinessResult()
-        { }
+        {
+        }
 
         protected BusinessResult(bool isSuccess, BusinessError? error)
         {
@@ -14,7 +15,7 @@
             Error = error;
         }
 
-        public static BusinessResult FromSuccess()
+        public static BusinessResult FromSuccess(BusinessResult<User> businessResult)
         {
             return new BusinessResult(true, null);
         }
@@ -23,6 +24,21 @@
         {
             BusinessError error = new(errorMessage, reason);
             return new BusinessResult(false, error);
+        }
+
+        public static BusinessResult FromSuccess(BusinessResult<UserTask> businessResult)
+        {
+            return new BusinessResult(true, null);
+        }
+
+        public static BusinessResult FromSuccess(BusinessResult<Task> businessResult)
+        {
+            return new BusinessResult(true, null);
+        }
+
+        public static BusinessResult FromSuccess()
+        {
+            return new BusinessResult(true, null);
         }
     }
 
@@ -46,9 +62,14 @@
             return new BusinessResult<T>(false, error, result);
         }
 
-        public static BusinessResult<User> FromSuccess(BusinessResult<User> updatedUser)
+        public static BusinessResult<User> FromSuccess(User updatedUser)
         {
-            throw new NotImplementedException();
+            return new BusinessResult<User>(true, null, updatedUser);
+        }
+
+        public static BusinessResult<UserTask> FromSuccess(UserTask updatedTask)
+        {
+            return new BusinessResult<UserTask>(true, null, updatedTask);
         }
     }
 

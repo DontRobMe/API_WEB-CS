@@ -39,7 +39,7 @@ namespace TP_CS.Controllers
         public IActionResult CreateUser(User user)
         {
             var createdUser = _userService.CreateUser(user);
-            if (createdUser == null)
+            if (!createdUser.IsSuccess)
             {
                 return BadRequest("Erreur lors de la création de l'utilisateur.");
             }

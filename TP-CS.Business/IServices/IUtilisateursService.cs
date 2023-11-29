@@ -11,7 +11,7 @@ namespace TP_CS.Business.IServices
 
         public BusinessResult<User> CreateUser(User item);
 
-        public BusinessResult<User> UpdateUser(long id, User model);
+        public BusinessResult UpdateUser(long id, User model);
 
         public BusinessResult DeleteUser(long id);
     }

@@ -1,4 +1,5 @@
 ﻿using TP_CS.Business.IRepositories;
+using TP_CS.Business.Models;
 using TP_CS.Data.Context;
 using UserTask = TP_CS.Business.Models.UserTask;
 
@@ -50,31 +51,53 @@ namespace TP_CS.Data.Repositories
 
         public UserTask GetTaskById(long taskId)
         {
-            var task = _dbContext.Tasks?.FirstOrDefault(t => t.Id == taskId);
-            if (task == null)
-            {
-                throw new InvalidOperationException("Tâche introuvable");
-            }
-
-            return task;
+            return _dbContext.Tasks?.FirstOrDefault(t => t.Id == taskId);
         }
 
-        public void UpdateTaskStatus(long taskId, bool isDone)
+
+
+        public BusinessResult<UserTask> UpdateTaskStatus(long taskId, bool isDone)
         {
-            var task = _dbContext.Tasks?.FirstOrDefault(t => t.Id == taskId);
-            if (task == null)
+            try
             {
-                throw new InvalidOperationException("Tâche introuvable");
-            }
+                var task = _dbContext.Tasks?.FirstOrDefault(t => t.Id == taskId);
+                if (task != null)
+                {
+                    if (task.Completed == isDone)
+                    {
+                        return BusinessResult<UserTask>.FromError("La tâche est déjà complétée.",
+                            BusinessErrorReason.BusinessRule);
+                    }
 
-            if (task.Completed == isDone)
+                    task.Completed = isDone;
+                    int affected = _dbContext.SaveChanges();
+
+                    // Vérification du nombre d'entités affectées par SaveChanges
+                    if (affected > 0)
+                    {
+                        return BusinessResult<UserTask>.FromSuccess(task);
+                    }
+                    else
+                    {
+                        return BusinessResult<UserTask>.FromError("Aucune modification enregistrée.",
+                            BusinessErrorReason.BusinessRule);
+                    }
+                }
+                else
+                {
+                    return BusinessResult<UserTask>.FromError($"Tâche avec l'ID {taskId} introuvable.",
+                        BusinessErrorReason.NotFound);
+                }
+            }
+            catch (Exception ex)
             {
-                throw new ArgumentException("La tâche est déjà complétée.");
+                return BusinessResult<UserTask>.FromError(
+                    $"Erreur lors de la mise à jour de la tâche avec l'ID {taskId}.",
+                    BusinessErrorReason.BusinessRule);
             }
-
-            task.Completed = isDone;
-            _dbContext.SaveChanges();
         }
+
+
         public IEnumerable<UserTask>? GetTasksByCompleted(bool completed)
         {
             return _dbContext.Tasks?.Where(t => t.Completed == completed).ToList();
@@ -82,12 +105,13 @@ namespace TP_CS.Data.Repositories
 
         public IEnumerable<UserTask>? GetTasksByUserId(long userId)
         {
-            return _dbContext.Tasks?.Where(t => t.Id == userId ).ToList();
+            return _dbContext.Tasks?.Where(t => t.Id == userId).ToList();
         }
 
         public IEnumerable<UserTask>? SearchTasks(string keyword)
         {
-            return _dbContext.Tasks?.Where(task => task.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
+            return _dbContext.Tasks?.Where(task => task.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .ToList();
         }
     }
 }

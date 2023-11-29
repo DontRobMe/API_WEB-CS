@@ -27,7 +27,7 @@ namespace TP_CS.Controllers
             return Ok(tasks);
         }
 
-        [HttpGet("{id}", Name = "GetTaskById")]
+        [HttpGet("{id:long}", Name = "GetTaskById")]
         public IActionResult GetTaskById(long id)
         {
             var task = _taskService.GetTaskById(id);
@@ -48,10 +48,10 @@ namespace TP_CS.Controllers
         }
 
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateTask(long id, UserTask task)
+        [HttpPut("{id:long}")]
+        public IActionResult UpdateTask(long id, bool isDone)
         {
-            var updatedTask = _taskService.UpdateTaskStatus(id, task);
+            var updatedTask = _taskService.UpdateTaskStatus(id, isDone);
             if (updatedTask == null)
             {
                 return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
@@ -60,7 +60,7 @@ namespace TP_CS.Controllers
             return Ok(updatedTask);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:long}")]
         public IActionResult DeleteTask(long id)
         {
             var result = _taskService.DeleteTask(id);

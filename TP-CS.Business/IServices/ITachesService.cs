@@ -7,11 +7,11 @@ namespace TP_CS.Business.IServices
     {
         public BusinessResult<IEnumerable<UserTask>> GetTasks();
 
-        public BusinessResult<UserTask?> GetTaskById(long id);
+        public BusinessResult<UserTask> GetTaskById(long id);
 
         public BusinessResult<UserTask> CreateTask(UserTask item);
 
-        public BusinessResult<UserTask> UpdateTaskStatus(long id, UserTask model);
+        public BusinessResult UpdateTaskStatus(long id, bool isDone);
 
         public BusinessResult DeleteTask(long id);
         BusinessResult<List<UserTask>> GetTasksByCompleted(bool completed);
