@@ -1,5 +1,5 @@
 ﻿using TP_CS.Business.Models;
-using Task = TP_CS.Business.Models.UserTask;
+using UserTask = TP_CS.Business.Models.UserTask;
 
 namespace TP_CS.Business.IServices
 {

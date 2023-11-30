@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TP_CS.Business.DTO;
 using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
 
@@ -37,29 +36,20 @@ namespace TP_CS.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserDto.UserCreateDto user)
+        public IActionResult CreateUser(User user)
         {
-            User userD = new User()
-            {
-                Nom = user.Nom
-            };
-            var createdUser = _userService.CreateUser(userD);
+            var createdUser = _userService.CreateUser(user);
             if (!createdUser.IsSuccess)
             {
                 return BadRequest("Erreur lors de la création de l'utilisateur.");
             }
-            return CreatedAtRoute("GetUserById", new { id = userD.Id }, userD);
+            return CreatedAtRoute("GetUserById", new { id = user.Id }, user);
         }
 
         [HttpPut("{id:long}")]
-        public IActionResult UpdateUser(long id, UserDto.UpdateUserDto user)
+        public IActionResult UpdateUser(long id, User user)
         {
-            User userD = new User()
-            {
-                Nom = user.Nom
-            };
-            
-            var updatedUser = _userService.UpdateUser(id, userD);
+            var updatedUser = _userService.UpdateUser(id, user);
             if (updatedUser == null)
             {
                 return NotFound($"Utilisateur avec l'ID {id} introuvable pour la mise à jour.");

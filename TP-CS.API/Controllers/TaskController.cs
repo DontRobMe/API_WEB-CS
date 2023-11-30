@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using TP_CS.Business.DTO;
 using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
 using UserTask = TP_CS.Business.Models.UserTask;
@@ -41,18 +40,11 @@ namespace TP_CS.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTask(TaskDto.CreateTaskDto task)
+        public IActionResult CreateTask(UserTask task)
         {
-            UserTask createdTask = new UserTask()
-            {
-                Name = task.Name,
-                Completed = task.Completed,
-                UserId = task.UserId
-            };
-            
-            var createdTaskResult = _taskService.CreateTask(createdTask);
+            var createdTaskResult = _taskService.CreateTask(task);
 
-            return CreatedAtRoute("GetTaskById", new { id = createdTask.Id }, createdTask);
+            return CreatedAtRoute("GetTaskById", new { id = task.Id }, task);
         }
 
 
