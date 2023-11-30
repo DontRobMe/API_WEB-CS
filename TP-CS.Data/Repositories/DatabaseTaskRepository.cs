@@ -51,7 +51,7 @@ namespace TP_CS.Data.Repositories
 
         public UserTask GetTaskById(long taskId)
         {
-            return _dbContext.Tasks?.FirstOrDefault(t => t.Id == taskId);
+            return _dbContext.Tasks?.FirstOrDefault(t => t.Id == taskId)!;
         }
 
 
@@ -89,7 +89,7 @@ namespace TP_CS.Data.Repositories
                         BusinessErrorReason.NotFound);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return BusinessResult<UserTask>.FromError(
                     $"Erreur lors de la mise à jour de la tâche avec l'ID {taskId}.",
