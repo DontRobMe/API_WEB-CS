@@ -28,7 +28,7 @@ namespace TP_CS.Business.Services
             }
         }
 
-        public BusinessResult<User?> GetUserById(long id)
+        public User GetUserById(long id)
         {
             try
             {

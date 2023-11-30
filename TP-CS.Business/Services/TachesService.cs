@@ -28,7 +28,7 @@ namespace TP_CS.Business.Services
             }
         }
 
-        public BusinessResult<Task?> GetTaskById(long id)
+        public Task GetTaskById(long id)
         {
             try
             {

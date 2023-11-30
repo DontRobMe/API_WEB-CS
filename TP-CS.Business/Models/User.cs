@@ -1,6 +1,6 @@
 ﻿namespace TP_CS.Business.Models;
 
-public abstract class User
+public class User
 {
     public long Id { get; set; }
     public required string Nom { get; set; }

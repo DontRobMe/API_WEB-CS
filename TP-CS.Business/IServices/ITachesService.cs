@@ -7,7 +7,7 @@ namespace TP_CS.Business.IServices
     {
         public BusinessResult<List<Task>> GetTasks();
 
-        public BusinessResult<Task?> GetTaskById(long id);
+        public Task GetTaskById(long id);
 
         public BusinessResult<Task> CreateTask(Task item);
 

@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
+using TP_CS.DTOs;
 using Task = TP_CS.Business.Models.Task;
 
 namespace TP_CS.Controllers
@@ -39,24 +40,39 @@ namespace TP_CS.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTask(Task task)
+        public IActionResult CreateTask(TaskCreateDto taskDto)
         {
-            var createdTask = _taskService.CreateTask(task);
+            var createdTask = _taskService.CreateTask(MapToTask(taskDto));
             if (createdTask == null)
             {
                 return BadRequest("Erreur lors de la création de la tâche.");
             }
-            return CreatedAtRoute("GetTaskById", new { id = createdTask.Data.id }, createdTask.Data);
+            return CreatedAtRoute("GetTaskById", new { id = createdTask.Data.Id }, createdTask.Data);
         }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateTask(long id, Task task)
+        private Task MapToTask(TaskCreateDto taskDto)
         {
-            var updatedTask = _taskService.UpdateTaskStatus(id, task);
-            if (updatedTask == null)
+            return new Task
+            {
+                Name = taskDto.Name,
+                Completed = taskDto.Completed,
+                UtilisateurId = taskDto.UtilisateurId
+            };
+        }
+        
+        [HttpPut("{id}")]
+        public IActionResult UpdateTask(long id, TaskUpdateDto taskUpdateDto)
+        {
+            var existingTask = _taskService.GetTaskById(id);
+
+            if (existingTask == null)
             {
                 return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
             }
+
+            existingTask.Completed = taskUpdateDto.Completed;
+
+            var updatedTask = _taskService.UpdateTaskStatus(id, existingTask);
+
             return Ok(updatedTask);
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace TP_CS.Business.Models;
 
-public abstract class Task 
+public  class Task 
 {
     public long Id { get; set; }
     public required string Name { get; set; }
