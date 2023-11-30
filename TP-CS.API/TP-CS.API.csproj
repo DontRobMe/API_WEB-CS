@@ -25,6 +25,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TP-CS.Business\TP-CS.Business.csproj" />
+        <ProjectReference Include="..\TP-CS.Data\TP-CS.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="DTO.cs" />
     </ItemGroup>
 
 </Project>
