@@ -19,8 +19,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="C:\Users\amado\RiderProjects\TP-CS\TP-CS.Business\TP-CS.Business.csproj" />
-        <ProjectReference Include="C:\Users\amado\RiderProjects\TP-CS\TP-CS.Data\TP-CS.Data.csproj" />
+        <ProjectReference Include="C:\Users\Franc\RiderProjects\TP-CS\TP-CS.Business\TP-CS.Business.csproj" />
+        <ProjectReference Include="C:\Users\Franc\RiderProjects\TP-CS\TP-CS.Data\TP-CS.Data.csproj" />
     </ItemGroup>
 
     <ItemGroup>
