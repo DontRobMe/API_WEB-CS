@@ -23,7 +23,7 @@ namespace TP_CS.Business.Services
             return BusinessResult<IEnumerable<User>>.FromSuccess(users);
         }
 
-        public BusinessResult<User?> GetUserById(long id)
+        public User GetUserById(long id)
         {
             var user = _userRepository.GetUserById(id);
             return BusinessResult<User?>.FromSuccess(user);

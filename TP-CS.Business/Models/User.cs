@@ -1,4 +1,4 @@
-﻿namespace TP_CS.Business.Models
+namespace TP_CS.Business.Models
 {
     public class User
     {
