@@ -31,7 +31,27 @@
             return new BusinessResult(true, null);
         }
 
-        public static BusinessResult FromSuccess(BusinessResult<Task> businessResult)
+        public static BusinessResult FromSuccess(BusinessResult<Team> businessResult)
+        {
+            return new BusinessResult(true, null);
+        }
+
+        public static BusinessResult FromSuccess(BusinessResult<Tag> businessResult)
+        {
+            return new BusinessResult(true, null);
+        }
+
+        public static BusinessResult FromSuccess(Team businessResult)
+        {
+         return new BusinessResult(true, null);
+        }
+
+        public static BusinessResult FromSuccess(Tag businessResult)
+        {
+            return new BusinessResult(true, null);
+        }
+
+        public static BusinessResult FromSuccess(BusinessResult<Project> existingProject)
         {
             return new BusinessResult(true, null);
         }
@@ -70,6 +90,11 @@
         public static BusinessResult<UserTask> FromSuccess(UserTask updatedTask)
         {
             return new BusinessResult<UserTask>(true, null, updatedTask);
+        }
+
+        public static BusinessResult<Project> FromSuccess(Project businessResult)
+        {
+            return new BusinessResult<Project>(true, null, businessResult);
         }
     }
 
