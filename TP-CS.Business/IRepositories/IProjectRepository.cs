@@ -6,7 +6,7 @@ public interface IProjectRepository
 {
     IEnumerable<Project>? GetProjects();
     
-    public Project GetProjectById(long id);
+    public Project GetProjectById(long? id);
     
     public void CreateProject(Project project);
     

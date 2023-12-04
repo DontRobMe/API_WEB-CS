@@ -32,11 +32,7 @@ namespace TP_CS.Business.Services
         public BusinessResult<Team> CreateTeam(Team team)
         {
             Project proj = _projRepository.GetProjectById(team.projectId);
-            if (proj is null)
-            {
-                return BusinessResult<Team>.FromError("Le projet n'existe pas");
-            }
-            
+
             _teamRepository.CreateTeam(team, proj);
             return BusinessResult<Team>.FromSuccess(team);
         }

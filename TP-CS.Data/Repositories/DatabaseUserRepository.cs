@@ -1,4 +1,5 @@
-﻿using TP_CS.Business.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using TP_CS.Business.IRepositories;
 using TP_CS.Business.Models;
 using TP_CS.Data.Context;
 
@@ -15,21 +16,10 @@ namespace TP_CS.Data.Repositories
 
         public User CreateUser(User newUser, Team team)
         {
-            try
-            {
-                _dbContext.Teams?.FirstOrDefault(u => u.Id == team.Id)?.Users.Add(newUser);
-                _dbContext.Users?.Add(newUser);
-                _dbContext.SaveChanges();
-                // Log successful user creation
-                Console.WriteLine("Utilisateur ajouté à la base de données !");
-                return newUser;
-            }
-            catch (Exception ex)
-            {
-                // Log any exceptions that occur during user creation
-                Console.WriteLine($"Erreur lors de l'ajout de l'utilisateur à la base de données : {ex.Message}");
-                throw; // Rethrow the exception to handle it in the service layer
-            }
+            _dbContext.Teams?.FirstOrDefault(u => u.Id == team.Id)?.Users.Add(newUser);
+            _dbContext.Users?.Add(newUser);
+            _dbContext.SaveChanges();
+            return newUser;
         }
 
         public void DeleteUser(long userId)
@@ -44,10 +34,13 @@ namespace TP_CS.Data.Repositories
 
         public IEnumerable<User>? GetUsers()
         {
-            return _dbContext.Users?.ToList();
+            return _dbContext.Users?
+                .Include(b => b.UserTasks)
+                .ThenInclude(t => t.Tags)
+                .ToList();
         }
 
-        public User GetUserById(long userId)
+        public User GetUserById(long? userId)
         {
             return _dbContext.Users?.FirstOrDefault(u => u.Id == userId)
                    ?? throw new InvalidOperationException("Utilisateur introuvable");
@@ -87,6 +80,5 @@ namespace TP_CS.Data.Repositories
                     BusinessErrorReason.BusinessRule);
             }
         }
-
     }
 }

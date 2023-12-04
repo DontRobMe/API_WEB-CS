@@ -11,7 +11,7 @@ namespace TP_CS.Business.IRepositories
         
         void DeleteTask(long taskId);
         
-        UserTask GetTaskById(long taskId);
+        UserTask GetTaskById(long? taskId);
         
         BusinessResult<UserTask> UpdateTaskStatus(long taskId, bool isDone);
         

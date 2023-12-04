@@ -16,17 +16,5 @@ namespace TP_CS.Data.Context
         public DbSet<Team>? Teams { get; set; }
         
         public DbSet<Tag>? Tags { get; set; }
-        
-       protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<UserTask>()
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(t => t.UserId);
-            
-            base.OnModelCreating(modelBuilder);
-        }
-       
-       
     }
 }

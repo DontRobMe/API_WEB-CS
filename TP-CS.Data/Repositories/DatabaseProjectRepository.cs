@@ -1,4 +1,5 @@
-﻿using TP_CS.Business.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using TP_CS.Business.IRepositories;
 using TP_CS.Business.Models;
 using TP_CS.Data.Context;
 
@@ -15,10 +16,15 @@ public class DatabaseProjectRepository : IProjectRepository
     
     public IEnumerable<Project>? GetProjects()
     {
-        return _dbContext.Projects?.ToList();
+        return _dbContext.Projects?
+            .Include(b => b.Teams)
+            .ThenInclude(t => t.Users)
+            .Include(b => b.UserTasks)
+            .ThenInclude(t => t.Tags)
+            .ToList();
     }
 
-    public Project GetProjectById(long id)
+    public Project GetProjectById(long? id)
     {
         return _dbContext.Projects?.FirstOrDefault(t => t.Id == id)!;
 
@@ -26,17 +32,7 @@ public class DatabaseProjectRepository : IProjectRepository
 
     public void CreateProject(Project newproject)
     {
-        if (newproject.ResponsibleUserId == default)
-        {
-            throw new ArgumentException("L'ID de l'utilisateur responsable est requis.");
-        }
-
-        var responsibleproj = _dbContext.Users?.FirstOrDefault(u => u.Id == newproject.ResponsibleUserId);
-        if (responsibleproj == null)
-        {
-            throw new InvalidOperationException("L'utilisateur avec l'ID spécifié n'existe pas.");
-        }
-
+        _dbContext.Users?.FirstOrDefault(u => u.Id == newproject.ResponsibleUserId);
         _dbContext.Projects?.Add(newproject);
         _dbContext.SaveChanges();
     }

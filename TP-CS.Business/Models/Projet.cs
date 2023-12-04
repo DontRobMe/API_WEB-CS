@@ -7,7 +7,7 @@ public class Project
     public string Description { get; set; }
     public DateTime StartDate { get; set; } = DateTime.Now;
     public bool Status { get; set; }
-    public long ResponsibleUserId { get; set; }
+    public long? ResponsibleUserId { get; set; }
     
     public List<Team> Teams { get; set; } = new();
     

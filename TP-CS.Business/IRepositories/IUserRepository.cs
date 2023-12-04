@@ -11,7 +11,7 @@ namespace TP_CS.Business.IRepositories
         
         IEnumerable<User>? GetUsers();
         
-        User GetUserById(long userId);
+        User GetUserById(long? userId);
         
         BusinessResult<User> UpdateUser(long userId, User updatedUser);
     }

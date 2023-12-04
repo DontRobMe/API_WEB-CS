@@ -1,4 +1,5 @@
-﻿using TP_CS.Business.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using TP_CS.Business.IRepositories;
 using TP_CS.Business.Models;
 using TP_CS.Data.Context;
 
@@ -15,10 +16,14 @@ public class DatabaseTeamRepository : ITeamRepository
 
     public List<Team>? GetTeams()
     {
-        return _dbContext.Teams?.ToList();
+        return _dbContext.Teams?
+            .Include(b => b.Users)
+            .ThenInclude(t => t.UserTasks)
+            .ThenInclude(t => t.Tags)
+            .ToList();
     }
 
-    public Team GetTeamById(long id)
+    public Team GetTeamById(long? id)
     {
         return _dbContext.Teams?.FirstOrDefault(t => t.Id == id)!;
     }

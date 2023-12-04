@@ -1,4 +1,5 @@
-﻿using TP_CS.Business.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using TP_CS.Business.IRepositories;
 using TP_CS.Business.Models;
 using TP_CS.Data.Context;
 using UserTask = TP_CS.Business.Models.UserTask;
@@ -17,16 +18,7 @@ namespace TP_CS.Data.Repositories
 
         public void CreateTask(UserTask newTask, Project project, User users)
         {
-            if (newTask.UserId == default)
-            {
-                throw new ArgumentException("L'ID de l'utilisateur est requis.");
-            }
-
-            var user = _dbContext.Users?.FirstOrDefault(u => u.Id == newTask.UserId);
-            if (user == null)
-            {
-                throw new InvalidOperationException("L'utilisateur avec l'ID spécifié n'existe pas.");
-            }
+            //_dbContext.Users?.FirstOrDefault(u => u.Id == newTask.UserId);
             _dbContext.Users?.FirstOrDefault(u => u.Id == users.Id)?.UserTasks.Add(newTask);
             _dbContext.Projects?.FirstOrDefault(p => p.Id == project.Id)?.UserTasks.Add(newTask);
             _dbContext.Tasks?.Add(newTask);
@@ -35,7 +27,9 @@ namespace TP_CS.Data.Repositories
 
         public IEnumerable<UserTask>? GetTasks()
         {
-            return _dbContext.Tasks?.ToList();
+            return _dbContext.Tasks?
+                .Include(b => b.Tags)
+                .ToList();
         }
 
         public void DeleteTask(long taskId)
@@ -50,7 +44,7 @@ namespace TP_CS.Data.Repositories
             _dbContext.SaveChanges();
         }
 
-        public UserTask GetTaskById(long taskId)
+        public UserTask GetTaskById(long? taskId)
         {
             return _dbContext.Tasks?.FirstOrDefault(t => t.Id == taskId)!;
         }

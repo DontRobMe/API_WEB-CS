@@ -45,6 +45,7 @@ namespace TP_CS.Controllers
                 Name = project.Name,
                 Description = project.Description,
                 Status = project.Status,
+                ResponsibleUserId = project.ResponsibleUserId
             };
             
             var createdProjectResult = _projectService.CreateProject(createdProject);
@@ -76,7 +77,6 @@ namespace TP_CS.Controllers
                 Name = project.Name,
                 Description = project.Description,
                 Status = project.Status,
-                ResponsibleUserId = project.ResponsibleUserId
             };
             var updatedTask = _projectService.Update(projectD, id);
             if (updatedTask == null)

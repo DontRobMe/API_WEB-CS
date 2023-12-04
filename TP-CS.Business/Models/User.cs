@@ -7,7 +7,7 @@ namespace TP_CS.Business.Models
         
         public string Role { get; set; }
         
-        public long TeamId { get; set; }
+        public long? TeamId { get; set; }
         public List<UserTask> UserTasks { get; set; } = new();
     }
 }

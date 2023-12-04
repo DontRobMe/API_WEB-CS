@@ -43,10 +43,6 @@ namespace TP_CS.Business.Services
         {
             Project proj = _projectRepository.GetProjectById(item.ProjectId);
             User user = _userRepository.GetUserById(item.UserId);
-            if (proj is null)
-            {
-                return BusinessResult<UserTask>.FromError("Le projet n'existe pas");
-            }
             _taskRepository.CreateTask(item, proj, user);
             return BusinessResult<UserTask>.FromSuccess(item);
         }

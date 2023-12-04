@@ -34,10 +34,6 @@ namespace TP_CS.Business.Services
         public BusinessResult<User> CreateUser(User item)
         {
             Team team = _teamRepository.GetTeamById(item.TeamId);
-            if(team is null)
-            {
-                return BusinessResult<User>.FromError("L'équipe n'existe pas");
-            }
             var newUser = _userRepository.CreateUser(item, team);
             return BusinessResult<User>.FromSuccess(newUser);
         }

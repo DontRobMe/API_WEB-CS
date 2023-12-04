@@ -32,10 +32,6 @@ namespace TP_CS.Business.Services
         public BusinessResult<Tag> CreateTag(Tag tag)
         {
             UserTask task = _taskRepository.GetTaskById(tag.TaskId);
-            if (task is null)
-            {
-                return BusinessResult<Tag>.FromError("La tâche n'existe pas");
-            }
             _tagRepository.CreateTag(tag, task);
             return BusinessResult<Tag>.FromSuccess(tag);
         }
