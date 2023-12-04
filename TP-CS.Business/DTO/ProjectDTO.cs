@@ -7,7 +7,6 @@ public class ProjectDTO
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Status { get; set; }
-        public long ResponsibleUserId { get; set; }
     }
     
     public class UpdateProjetDto
@@ -15,5 +14,7 @@ public class ProjectDTO
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Status { get; set; }
+        public long ResponsibleUserId { get; set; }
+
     }
 }

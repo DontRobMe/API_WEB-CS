@@ -44,7 +44,6 @@ namespace TP_CS.Controllers
             {
                 Name = team.Name,
                 Description = team.Description,
-                LeaderUserId = team.LeaderUserId,
                 projectId = team.projectId
             };
             var createdTeamResult = _teamService.CreateTeam(createdTeam);
@@ -70,6 +69,7 @@ namespace TP_CS.Controllers
             {
                 Name = team.Name,
                 Description = team.Description, 
+                LeaderUserId = team.LeaderUserId,
             };
             var updatedTask = _teamService.UpdateTeam(updatedTeam, id);
             if (updatedTask == null)

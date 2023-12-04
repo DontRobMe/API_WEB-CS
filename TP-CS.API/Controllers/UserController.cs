@@ -45,8 +45,7 @@ namespace TP_CS.Controllers
             User userD = new User()
             {
                 Nom = user.Nom,
-                Role = user.Role,
-                TeamId = user.TeamId
+                Role = user.Role
             };
             var createdUser = _userService.CreateUser(userD);
             if (!createdUser.IsSuccess)
@@ -61,7 +60,8 @@ namespace TP_CS.Controllers
         {
             User userD = new User()
             {
-                Nom = user.Nom
+                Nom = user.Nom,
+                TeamId = user.TeamId
             };
             
             var updatedUser = _userService.UpdateUser(id, userD);

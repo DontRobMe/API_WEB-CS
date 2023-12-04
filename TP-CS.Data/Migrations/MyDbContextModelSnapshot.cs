@@ -40,12 +40,7 @@ namespace TPCS.Data.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("TeamId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TeamId");
 
                     b.ToTable("Projects");
                 });
@@ -71,12 +66,15 @@ namespace TPCS.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("ProjectId")
+                    b.Property<long>("TaskId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UserTaskId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("UserTaskId");
 
                     b.ToTable("Tags");
                 });
@@ -98,7 +96,12 @@ namespace TPCS.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<long>("projectId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("projectId");
 
                     b.ToTable("Teams");
                 });
@@ -113,11 +116,16 @@ namespace TPCS.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("role")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<long>("TeamId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Users");
                 });
@@ -135,10 +143,13 @@ namespace TPCS.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("ProjectId")
+                    b.Property<long>("ProjectId")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UserId1")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -147,76 +158,75 @@ namespace TPCS.Data.Migrations
 
                     b.HasIndex("UserId");
 
+                    b.HasIndex("UserId1");
+
                     b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("TeamUser", b =>
-                {
-                    b.Property<long>("TeamsId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("UsersId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("TeamsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("TeamUser");
-                });
-
-            modelBuilder.Entity("TP_CS.Business.Models.Project", b =>
-                {
-                    b.HasOne("TP_CS.Business.Models.Team", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("TeamId");
                 });
 
             modelBuilder.Entity("TP_CS.Business.Models.Tag", b =>
                 {
-                    b.HasOne("TP_CS.Business.Models.Project", null)
+                    b.HasOne("TP_CS.Business.Models.UserTask", null)
                         .WithMany("Tags")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("UserTaskId");
+                });
+
+            modelBuilder.Entity("TP_CS.Business.Models.Team", b =>
+                {
+                    b.HasOne("TP_CS.Business.Models.Project", null)
+                        .WithMany("Teams")
+                        .HasForeignKey("projectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TP_CS.Business.Models.User", b =>
+                {
+                    b.HasOne("TP_CS.Business.Models.Team", null)
+                        .WithMany("Users")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TP_CS.Business.Models.UserTask", b =>
                 {
                     b.HasOne("TP_CS.Business.Models.Project", null)
-                        .WithMany("Tasks")
-                        .HasForeignKey("ProjectId");
+                        .WithMany("UserTasks")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TP_CS.Business.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TeamUser", b =>
-                {
-                    b.HasOne("TP_CS.Business.Models.Team", null)
-                        .WithMany()
-                        .HasForeignKey("TeamsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.HasOne("TP_CS.Business.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("UserTasks")
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("TP_CS.Business.Models.Project", b =>
                 {
-                    b.Navigation("Tags");
+                    b.Navigation("Teams");
 
-                    b.Navigation("Tasks");
+                    b.Navigation("UserTasks");
                 });
 
             modelBuilder.Entity("TP_CS.Business.Models.Team", b =>
                 {
-                    b.Navigation("Projects");
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("TP_CS.Business.Models.User", b =>
+                {
+                    b.Navigation("UserTasks");
+                });
+
+            modelBuilder.Entity("TP_CS.Business.Models.UserTask", b =>
+                {
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }
