@@ -29,21 +29,20 @@ public class DatabaseTeamRepository : ITeamRepository
         _dbContext.SaveChanges();
     }
 
-    public BusinessResult<Team> UpdateTeam(Team team)
+    public BusinessResult<Team> UpdateTeam(Team team, long id)
     {
-        var existingTeam = _dbContext.Teams?.FirstOrDefault(t => t.Id == team.Id);
+        var existingTeam = _dbContext.Teams?.FirstOrDefault(t => t.Id == id);
 
         if (existingTeam != null)
         {
             existingTeam.Name = team.Name;
             existingTeam.Description = team.Description;
-            int affected = _dbContext.SaveChanges();
         }
         else
         {
             throw new InvalidOperationException("Équipe introuvable");
         }
-
+        _dbContext.SaveChanges();
         return BusinessResult<Team>.FromSuccess(existingTeam);
     }
 

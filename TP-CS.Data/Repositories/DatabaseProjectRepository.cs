@@ -41,21 +41,21 @@ public class DatabaseProjectRepository : IProjectRepository
         _dbContext.SaveChanges();
     }
 
-    public BusinessResult<Project> UpdateProject(Project project, bool isDone)
+    public BusinessResult<Project> UpdateProject(Project project, long id)
     {
-        var existingTeam = _dbContext.Projects?.FirstOrDefault(t => t.Id == project.Id);
+        var existingTeam = _dbContext.Projects?.FirstOrDefault(t => t.Id == id);
 
         if (existingTeam != null)
         {
             existingTeam.Name = project.Name;
             existingTeam.Description = project.Description;
-            existingTeam.Status = project.Status;
-            int affected = _dbContext.SaveChanges();
+            existingTeam.Status = project.Status; 
         }
         else
         {
             throw new InvalidOperationException("Équipe introuvable");
         }    
+        _dbContext.SaveChanges();
         return BusinessResult<Project>.FromSuccess(existingTeam);
     }
 

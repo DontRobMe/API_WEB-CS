@@ -24,21 +24,15 @@ namespace TP_CS.Business.Services
             var proj = _projectRepository.GetProjects();
             return BusinessResult<IEnumerable<Project>>.FromSuccess(proj);
         }
-
-        public void Create(Project project)
-        {
-            throw new NotImplementedException();
-        }
-
         public BusinessResult<Project> CreateProject(Project project)
         {
             _projectRepository.CreateProject(project);
             return BusinessResult<Project>.FromSuccess(project);
         }
 
-        public BusinessResult Update(Project project, bool isDone)
+        public BusinessResult Update(Project project, long id)
         {
-            var existingProject = _projectRepository.UpdateProject(project, isDone);
+            var existingProject = _projectRepository.UpdateProject(project, id);
             return BusinessResult.FromSuccess(existingProject);
         }
 
@@ -46,6 +40,12 @@ namespace TP_CS.Business.Services
         {
             _projectRepository.DeleteProject(id);
             return BusinessResult.FromSuccess();
+        }
+        
+        public BusinessResult<List<Project>> SearchProject(string keyword)
+        {
+            var matchingTasks = _projectRepository.SearchProjects(keyword);
+            return BusinessResult<List<Project>>.FromSuccess(matchingTasks?.ToList());
         }
     }
 }

@@ -33,9 +33,9 @@ namespace TP_CS.Business.Services
             return BusinessResult<Tag>.FromSuccess(tag);
         }
 
-        public BusinessResult UpdateTag(Tag tag)
+        public BusinessResult UpdateTag(Tag tag, long id)
         {
-            var existingTag = _tagRepository.UpdateTag(tag);
+            var existingTag = _tagRepository.UpdateTag(tag, id);
             return BusinessResult.FromSuccess(existingTag);
         }
 
@@ -43,6 +43,12 @@ namespace TP_CS.Business.Services
         {
             _tagRepository.DeleteTag(id);
             return BusinessResult.FromSuccess();
+        }
+        
+        public BusinessResult<List<Tag>> SearchTag(string keyword)
+        {
+            var matchingTasks = _tagRepository.SearchTag(keyword);
+            return BusinessResult<List<Tag>>.FromSuccess(matchingTasks?.ToList());
         }
     }
 }

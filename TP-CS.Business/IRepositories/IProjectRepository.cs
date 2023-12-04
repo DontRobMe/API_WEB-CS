@@ -10,7 +10,7 @@ public interface IProjectRepository
     
     void CreateProject(Project project);
     
-    BusinessResult<Project> UpdateProject(Project project, bool isDone);
+    BusinessResult<Project> UpdateProject(Project project, long id);
     
     void DeleteProject(long id);
     

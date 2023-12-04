@@ -7,7 +7,7 @@ public interface ITeamRepository
     List<Team>? GetTeams();
     Team GetTeamById(long id);
     void CreateTeam(Team team);
-    BusinessResult<Team> UpdateTeam(Team team);
+    BusinessResult<Team> UpdateTeam(Team team, long id);
     void DeleteTeam(long id);
     IEnumerable<Team>? SearchTeams(string keyword);
 }

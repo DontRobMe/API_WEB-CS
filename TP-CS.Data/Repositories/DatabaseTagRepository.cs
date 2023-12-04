@@ -29,9 +29,9 @@ public class DatabaseTagRepository : ITagRepository
         _dbContext.SaveChanges();
     }
 
-    public BusinessResult<Tag> UpdateTag(Tag tag)
+    public BusinessResult<Tag> UpdateTag(Tag tag, long id)
     {
-        var existingTeam = _dbContext.Tags?.FirstOrDefault(t => t.Id == tag.Id);
+        var existingTeam = _dbContext.Tags?.FirstOrDefault(t => t.Id == id);
 
         if (existingTeam != null)
         {
@@ -39,12 +39,12 @@ public class DatabaseTagRepository : ITagRepository
             existingTeam.Color = tag.Color;
             existingTeam.Description = tag.Description;
             existingTeam.Iscomplete = tag.Iscomplete;
-            int affected = _dbContext.SaveChanges();
         }
         else
         {
             throw new InvalidOperationException("Équipe introuvable");
         }
+        _dbContext.SaveChanges();
         return  BusinessResult<Tag>.FromSuccess(existingTeam);
     }
 

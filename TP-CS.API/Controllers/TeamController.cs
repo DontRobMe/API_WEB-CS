@@ -63,9 +63,26 @@ namespace TP_CS.Controllers
         }
         
         [HttpPut("{id:long}")]
-        public IActionResult UpdateTeam(long id, TeamDto.UpdateTeamDto team)
+        public IActionResult UpdateTeam(TeamDto.UpdateTeamDto team, long id)
         {
-            return NotFound();
+            Team updatedTeam = new Team()
+            {
+                Name = team.Name,
+                Description = team.Description, 
+            };
+            var updatedTask = _teamService.UpdateTeam(updatedTeam, id);
+            if (updatedTask == null)
+            {
+                return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
+            }
+
+            return Ok(updatedTask);
+        }
+        [HttpGet("search/{keyword}")]
+        public IActionResult SearchTeam(string keyword)
+        {
+            var tasks = _teamService.SearchTeam(keyword);
+            return Ok(tasks);
         }
     }
 }

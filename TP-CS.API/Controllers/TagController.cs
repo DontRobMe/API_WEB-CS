@@ -64,9 +64,29 @@ namespace TP_CS.Controllers
         }
         
         [HttpPut("{id:long}")]
-        public IActionResult UpdateTag(long id, TagDto.updateTagDto tag)
+        public IActionResult UpdateTag(TagDto.updateTagDto tag, long id)
         {
-            return NotFound();
+            Tag updatedTag = new Tag()
+            {
+                Name = tag.Name,
+                Color = tag.Color,
+                Description = tag.Description,
+                Iscomplete = tag.IsComplete
+            };
+            
+            var updatedTask = _tagService.UpdateTag(updatedTag, id);
+            if (updatedTask == null)
+            {
+                return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
+            }
+
+            return Ok(updatedTask);
+        }
+        [HttpGet("search/{keyword}")]
+        public IActionResult SearchTasks(string keyword)
+        {
+            var tasks = _tagService.SearchTag(keyword);
+            return Ok(tasks);
         }
     }
 }

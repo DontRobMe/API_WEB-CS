@@ -33,9 +33,9 @@ namespace TP_CS.Business.Services
             return BusinessResult<Team>.FromSuccess(team);
         }
 
-        public BusinessResult UpdateTeam(Team team)
+        public BusinessResult UpdateTeam(Team team, long id)
         {
-            var existingTeam = _teamRepository.UpdateTeam(team);
+            var existingTeam = _teamRepository.UpdateTeam(team, id);
             return BusinessResult.FromSuccess(existingTeam);
         }
 
@@ -43,6 +43,12 @@ namespace TP_CS.Business.Services
         {
             _teamRepository.DeleteTeam(id);
             return BusinessResult.FromSuccess();
+        }
+        
+        public BusinessResult<List<Team>> SearchTeam(string keyword)
+        {
+            var matchingTasks = _teamRepository.SearchTeams(keyword);
+            return BusinessResult<List<Team>>.FromSuccess(matchingTasks?.ToList());
         }
     }
 }

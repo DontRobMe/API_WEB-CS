@@ -66,9 +66,27 @@ namespace TP_CS.Controllers
         }
         
         [HttpPut("{id:long}")]
-        public IActionResult UpdateProject(long id, ProjectDTO.UpdateProjetDto project)
+        public IActionResult UpdateProject(ProjectDTO.UpdateProjetDto project, long id)
         {
-            return NoContent();
+            Project projectD = new Project()
+            {
+                Name = project.Name,
+                Description = project.Description,
+                Status = project.Status,
+            };
+            var updatedTask = _projectService.Update(projectD, id);
+            if (updatedTask == null)
+            {
+                return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
+            }
+
+            return Ok(updatedTask);
+        }
+        [HttpGet("search/{keyword}")]
+        public IActionResult SearchTasks(string keyword)
+        {
+            var tasks = _projectService.SearchProject(keyword);
+            return Ok(tasks);
         }
     }
 }
