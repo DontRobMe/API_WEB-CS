@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TP_CS.Business.DTO;
+using TP_CS.Business.IRepositories;
 using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
 
@@ -11,11 +12,13 @@ namespace TP_CS.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUtilisateursService _userService;
+        private readonly ITeamRepository _teamRepository;
 
-        public UserController(ILogger<UserController> logger, IUtilisateursService userService)
+        public UserController(ILogger<UserController> logger, IUtilisateursService userService, ITeamRepository teamRepository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _teamRepository = teamRepository ?? throw new ArgumentNullException(nameof(teamRepository));
         }
 
         [HttpGet]
@@ -41,7 +44,9 @@ namespace TP_CS.Controllers
         {
             User userD = new User()
             {
-                Nom = user.Nom
+                Nom = user.Nom,
+                Role = user.Role,
+                TeamId = user.TeamId
             };
             var createdUser = _userService.CreateUser(userD);
             if (!createdUser.IsSuccess)

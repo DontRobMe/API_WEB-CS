@@ -8,6 +8,8 @@ public class Project
     public DateTime StartDate { get; set; } = DateTime.Now;
     public bool Status { get; set; }
     public long ResponsibleUserId { get; set; }
-    public List<Task> Tasks { get; set; }
-    public List<Tag> Tags { get; set; }
+    
+    public List<Team> Teams { get; set; } = new();
+    
+    public List<UserTask> UserTasks { get; set; } = new();
 }

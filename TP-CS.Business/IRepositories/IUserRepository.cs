@@ -5,7 +5,7 @@ namespace TP_CS.Business.IRepositories
 {
     public interface IUserRepository
     {
-        User CreateUser(User newUser);
+        User CreateUser(User newUser, Team team);
         
         void DeleteUser(long userId);
         

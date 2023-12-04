@@ -9,10 +9,12 @@ namespace TP_CS.Business.Services
     public class TeamService : ITeamService
     {
         private readonly ITeamRepository _teamRepository;
+        private readonly IProjectRepository _projRepository;
 
-        public TeamService(ITeamRepository teamRepository)
+        public TeamService(ITeamRepository teamRepository, IProjectRepository projRepository)
         {
             _teamRepository = teamRepository ?? throw new ArgumentNullException(nameof(teamRepository));
+            _projRepository = projRepository ?? throw new ArgumentNullException(nameof(projRepository));
         }
 
         public BusinessResult<Team> GetTeamById(long id)
@@ -29,7 +31,13 @@ namespace TP_CS.Business.Services
 
         public BusinessResult<Team> CreateTeam(Team team)
         {
-            _teamRepository.CreateTeam(team);
+            Project proj = _projRepository.GetProjectById(team.projectId);
+            if (proj is null)
+            {
+                return BusinessResult<Team>.FromError("Le projet n'existe pas");
+            }
+            
+            _teamRepository.CreateTeam(team, proj);
             return BusinessResult<Team>.FromSuccess(team);
         }
 

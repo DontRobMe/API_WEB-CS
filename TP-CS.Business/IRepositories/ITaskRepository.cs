@@ -5,7 +5,7 @@ namespace TP_CS.Business.IRepositories
 {
     public interface ITaskRepository
     {
-        void CreateTask(UserTask newTask);
+        void CreateTask(UserTask newTask, Project proj, User user);
         
         IEnumerable<UserTask>? GetTasks();
         

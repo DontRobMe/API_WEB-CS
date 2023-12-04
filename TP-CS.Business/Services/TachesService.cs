@@ -8,10 +8,14 @@ namespace TP_CS.Business.Services
     public class TacheService : ITacheService
     {
         private readonly ITaskRepository _taskRepository;
+        private readonly IProjectRepository _projectRepository;
+        private readonly IUserRepository _userRepository;
 
-        public TacheService(ITaskRepository taskRepository)
+        public TacheService(ITaskRepository taskRepository, IProjectRepository projectService, IUserRepository userRepository)
         {
             _taskRepository = taskRepository ?? throw new ArgumentNullException(nameof(taskRepository));
+            _projectRepository = projectService ?? throw new ArgumentNullException(nameof(projectService));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         public BusinessResult<IEnumerable<UserTask>> GetTasks()
@@ -37,7 +41,13 @@ namespace TP_CS.Business.Services
 
         public BusinessResult<UserTask> CreateTask(UserTask item)
         {
-            _taskRepository.CreateTask(item);
+            Project proj = _projectRepository.GetProjectById(item.ProjectId);
+            User user = _userRepository.GetUserById(item.UserId);
+            if (proj is null)
+            {
+                return BusinessResult<UserTask>.FromError("Le projet n'existe pas");
+            }
+            _taskRepository.CreateTask(item, proj, user);
             return BusinessResult<UserTask>.FromSuccess(item);
         }
 

@@ -23,8 +23,9 @@ public class DatabaseTagRepository : ITagRepository
         return _dbContext.Tags?.FirstOrDefault(t => t.Id == id)!;
     }
 
-    public void CreateTag(Tag newtag)
+    public void CreateTag(Tag newtag, UserTask task)
     {
+        _dbContext.Tasks?.FirstOrDefault(t => t.Id == task.Id)?.Tags.Add(newtag);
         _dbContext.Tags?.Add(newtag);
         _dbContext.SaveChanges();
     }

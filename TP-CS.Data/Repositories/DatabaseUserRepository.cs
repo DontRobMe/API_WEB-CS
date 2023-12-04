@@ -13,10 +13,11 @@ namespace TP_CS.Data.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public User CreateUser(User newUser)
+        public User CreateUser(User newUser, Team team)
         {
             try
             {
+                _dbContext.Teams?.FirstOrDefault(u => u.Id == team.Id)?.Users.Add(newUser);
                 _dbContext.Users?.Add(newUser);
                 _dbContext.SaveChanges();
                 // Log successful user creation

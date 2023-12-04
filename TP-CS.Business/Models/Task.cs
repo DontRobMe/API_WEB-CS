@@ -7,5 +7,9 @@ namespace TP_CS.Business.Models
         public bool Completed { get; set; }
 
         public long UserId { get; set; }
+        
+        public long ProjectId { get; set; }
+        
+        public List<Tag> Tags { get; set; } = new();
     }
 }

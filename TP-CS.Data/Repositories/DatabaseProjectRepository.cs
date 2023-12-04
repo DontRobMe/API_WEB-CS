@@ -31,8 +31,8 @@ public class DatabaseProjectRepository : IProjectRepository
             throw new ArgumentException("L'ID de l'utilisateur responsable est requis.");
         }
 
-        var proj = _dbContext.Users?.FirstOrDefault(u => u.Id == newproject.ResponsibleUserId);
-        if (proj == null)
+        var responsibleproj = _dbContext.Users?.FirstOrDefault(u => u.Id == newproject.ResponsibleUserId);
+        if (responsibleproj == null)
         {
             throw new InvalidOperationException("L'utilisateur avec l'ID spécifié n'existe pas.");
         }

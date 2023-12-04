@@ -23,8 +23,9 @@ public class DatabaseTeamRepository : ITeamRepository
         return _dbContext.Teams?.FirstOrDefault(t => t.Id == id)!;
     }
 
-    public void CreateTeam(Team team)
+    public void CreateTeam(Team team, Project project)
     {
+        _dbContext.Projects?.FirstOrDefault(p => p.Id == project.Id)?.Teams.Add(team);
         _dbContext.Teams?.Add(team);
         _dbContext.SaveChanges();
     }

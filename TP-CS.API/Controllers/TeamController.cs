@@ -44,7 +44,8 @@ namespace TP_CS.Controllers
             {
                 Name = team.Name,
                 Description = team.Description,
-                LeaderUserId = team.LeaderUserId
+                LeaderUserId = team.LeaderUserId,
+                projectId = team.projectId
             };
             var createdTeamResult = _teamService.CreateTeam(createdTeam);
             return CreatedAtRoute("GetTeamById", new { id = createdTeam.Id }, createdTeam);

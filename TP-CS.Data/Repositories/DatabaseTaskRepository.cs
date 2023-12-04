@@ -15,7 +15,7 @@ namespace TP_CS.Data.Repositories
         }
 
 
-        public void CreateTask(UserTask newTask)
+        public void CreateTask(UserTask newTask, Project project, User users)
         {
             if (newTask.UserId == default)
             {
@@ -27,7 +27,8 @@ namespace TP_CS.Data.Repositories
             {
                 throw new InvalidOperationException("L'utilisateur avec l'ID spécifié n'existe pas.");
             }
-
+            _dbContext.Users?.FirstOrDefault(u => u.Id == users.Id)?.UserTasks.Add(newTask);
+            _dbContext.Projects?.FirstOrDefault(p => p.Id == project.Id)?.UserTasks.Add(newTask);
             _dbContext.Tasks?.Add(newTask);
             _dbContext.SaveChanges();
         }

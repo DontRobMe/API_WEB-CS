@@ -47,11 +47,11 @@ namespace TP_CS.Controllers
             {
                 Name = task.Name,
                 Completed = task.Completed,
-                UserId = task.UserId
+                UserId = task.UserId,
+                ProjectId = task.ProjectId
             };
             
             var createdTaskResult = _taskService.CreateTask(createdTask);
-
             return CreatedAtRoute("GetTaskById", new { id = createdTask.Id }, createdTask);
         }
 

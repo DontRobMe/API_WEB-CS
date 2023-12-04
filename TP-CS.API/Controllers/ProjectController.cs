@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using TP_CS.Business.DTO;
 using TP_CS.Business.IServices;
 using TP_CS.Business.Models;
@@ -11,10 +9,12 @@ namespace TP_CS.Controllers
     [Route("[controller]")]
     public class ProjectController : ControllerBase
     {
+        private readonly ILogger<ProjectController> _logger;
         private readonly IProjectService _projectService;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(ILogger<ProjectController> logger,IProjectService projectService)
         {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _projectService = projectService ?? throw new ArgumentNullException(nameof(projectService));
         }
 
@@ -49,6 +49,10 @@ namespace TP_CS.Controllers
             };
             
             var createdProjectResult = _projectService.CreateProject(createdProject);
+            if (!createdProjectResult.IsSuccess)
+            {
+                return BadRequest("Erreur lors de la création du projet.");
+            }
             
             return CreatedAtRoute("GetProjectById", new { id = createdProject.Id }, createdProject);
         }

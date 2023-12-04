@@ -45,7 +45,8 @@ namespace TP_CS.Controllers
                 Name = tag.Name,
                 Color = tag.Color,
                 Description = tag.Description,
-                Iscomplete = tag.Iscomplete
+                Iscomplete = tag.Iscomplete,
+                TaskId = tag.TaskId
             };
             var createdTagResult = _tagService.CreateTag(createdTag);
             return CreatedAtRoute("GetTagById", new { id = createdTag.Id }, createdTag);

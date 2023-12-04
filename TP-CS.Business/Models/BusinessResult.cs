@@ -96,6 +96,11 @@
         {
             return new BusinessResult<Project>(true, null, businessResult);
         }
+
+        public static BusinessResult<T> FromError(string leProjetNExistePas)
+        {
+            return BusinessResult<T>.FromError(leProjetNExistePas, BusinessErrorReason.NotFound);
+        }
     }
 
     // Erreur métier (cas géré et attendu)

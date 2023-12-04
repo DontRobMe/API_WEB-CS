@@ -11,10 +11,11 @@ namespace TP_CS.Business.Services
     public class UtilisateurService : IUtilisateursService
     {
         private readonly IUserRepository _userRepository;
-
-        public UtilisateurService(IUserRepository userRepository)
+        private readonly ITeamRepository _teamRepository;
+        public UtilisateurService(IUserRepository userRepository, ITeamRepository teamRepository)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _teamRepository = teamRepository ?? throw new ArgumentNullException(nameof(teamRepository));
         }
 
         public BusinessResult<IEnumerable<User>> GetUsers()
@@ -32,7 +33,12 @@ namespace TP_CS.Business.Services
 
         public BusinessResult<User> CreateUser(User item)
         {
-            var newUser = _userRepository.CreateUser(item);
+            Team team = _teamRepository.GetTeamById(item.TeamId);
+            if(team is null)
+            {
+                return BusinessResult<User>.FromError("L'équipe n'existe pas");
+            }
+            var newUser = _userRepository.CreateUser(item, team);
             return BusinessResult<User>.FromSuccess(newUser);
         }
 

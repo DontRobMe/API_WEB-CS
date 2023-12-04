@@ -1,3 +1,4 @@
+using System.Threading.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using TP_CS.Business.Services;
 using TP_CS.Business.IServices;
@@ -16,8 +17,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlite("Data Source=pool.db"));
 builder.Services.AddScoped<IUtilisateursService , UtilisateurService>();
 builder.Services.AddScoped<ITacheService , TacheService>();
+builder.Services.AddScoped<ITagService , TagService>();
+builder.Services.AddScoped<ITeamService , TeamService>();
+builder.Services.AddScoped<IProjectService , ProjectService>();
 builder.Services.AddScoped<IUserRepository , DatabaseUserRepository>();
 builder.Services.AddScoped<ITaskRepository , DatabaseTaskRepository>();
+builder.Services.AddScoped<IProjectRepository , DatabaseProjectRepository>();
+builder.Services.AddScoped<ITagRepository , DatabaseTagRepository>();
+builder.Services.AddScoped<ITeamRepository , DatabaseTeamRepository>();
+
 
 var app = builder.Build();
 

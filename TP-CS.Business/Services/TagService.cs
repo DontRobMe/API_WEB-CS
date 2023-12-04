@@ -9,10 +9,12 @@ namespace TP_CS.Business.Services
     public class TagService : ITagService
     {
         private readonly ITagRepository _tagRepository;
+        private readonly ITaskRepository _taskRepository;
 
-        public TagService(ITagRepository tagRepository)
+        public TagService(ITagRepository tagRepository, ITaskRepository taskRepository)
         {
             _tagRepository = tagRepository ?? throw new ArgumentNullException(nameof(tagRepository));
+            _taskRepository = taskRepository ?? throw new ArgumentNullException(nameof(taskRepository));
         }
 
         public BusinessResult<Tag> GetTagById(long id)
@@ -29,7 +31,12 @@ namespace TP_CS.Business.Services
 
         public BusinessResult<Tag> CreateTag(Tag tag)
         {
-            _tagRepository.CreateTag(tag);
+            UserTask task = _taskRepository.GetTaskById(tag.TaskId);
+            if (task is null)
+            {
+                return BusinessResult<Tag>.FromError("La tâche n'existe pas");
+            }
+            _tagRepository.CreateTag(tag, task);
             return BusinessResult<Tag>.FromSuccess(tag);
         }
 

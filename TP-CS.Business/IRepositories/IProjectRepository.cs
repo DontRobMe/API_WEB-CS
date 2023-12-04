@@ -6,13 +6,13 @@ public interface IProjectRepository
 {
     IEnumerable<Project>? GetProjects();
     
-    Project GetProjectById(long id);
+    public Project GetProjectById(long id);
     
-    void CreateProject(Project project);
+    public void CreateProject(Project project);
     
-    BusinessResult<Project> UpdateProject(Project project, long id);
+    public BusinessResult<Project> UpdateProject(Project project, long id);
     
-    void DeleteProject(long id);
+    public void DeleteProject(long id);
     
-    IEnumerable<Project>? SearchProjects(string keyword);
+    public IEnumerable<Project>? SearchProjects(string keyword);
 }

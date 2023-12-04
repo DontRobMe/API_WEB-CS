@@ -6,7 +6,9 @@ public record UserDto
     {
         public string Nom { get; set; }
         
-        public string role { get; set; }
+        public string Role { get; set; }
+        
+        public long TeamId { get; set; }
     }
     
     public class UpdateUserDto

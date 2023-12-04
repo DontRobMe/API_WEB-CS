@@ -9,4 +9,6 @@ public class Tag
     public string Color { get; set; }
     public string Description { get; set; }
     public bool Iscomplete { get; set; }
+    
+    public long TaskId { get; set; }
 }
