@@ -43,7 +43,7 @@ namespace TP_CS.Data.Repositories
         public User GetUserById(long? userId)
         {
             return _dbContext.Users?.FirstOrDefault(u => u.Id == userId)
-                   ?? throw new InvalidOperationException("Utilisateur introuvable");
+                   ?? throw new InvalidOperationException("User introuvable");
         }
 
         public BusinessResult<User> UpdateUser(long userId, User updatedUser)

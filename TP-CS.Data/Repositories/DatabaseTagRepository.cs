@@ -43,7 +43,7 @@ public class DatabaseTagRepository : ITagRepository
         }
         else
         {
-            throw new InvalidOperationException("Équipe introuvable");
+            throw new InvalidOperationException("Etiquette introuvable");
         }
         _dbContext.SaveChanges();
         return  BusinessResult<Tag>.FromSuccess(existingTeam);

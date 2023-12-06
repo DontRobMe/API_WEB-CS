@@ -49,7 +49,7 @@ public class DatabaseProjectRepository : IProjectRepository
         }
         else
         {
-            throw new InvalidOperationException("Équipe introuvable");
+            throw new InvalidOperationException("Projet introuvable");
         }    
         _dbContext.SaveChanges();
         return BusinessResult<Project>.FromSuccess(existingTeam);
@@ -60,7 +60,7 @@ public class DatabaseProjectRepository : IProjectRepository
         var proj = _dbContext.Projects?.FirstOrDefault(t => t.Id == id);
         if (proj == null)
         {
-            throw new InvalidOperationException("Tâche introuvable");
+            throw new InvalidOperationException("Projet introuvable");
         }
 
         _dbContext.Projects?.Remove(proj);
