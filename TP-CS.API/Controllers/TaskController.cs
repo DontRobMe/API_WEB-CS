@@ -62,7 +62,7 @@ namespace TP_CS.Controllers
             var updatedTask = _taskService.UpdateTaskStatus(id, isDone);
             if (updatedTask == null)
             {
-                return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
+                return NotFound(new { errorMessage = "Tâche introuvable", reason = 404 });
             }
 
             return Ok(updatedTask);

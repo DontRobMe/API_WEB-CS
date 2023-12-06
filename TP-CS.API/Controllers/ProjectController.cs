@@ -81,7 +81,7 @@ namespace TP_CS.Controllers
             var updatedTask = _projectService.Update(projectD, id);
             if (updatedTask == null)
             {
-                return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
+                return NotFound($"Projet avec l'ID {id} introuvable pour la mise à jour.");
             }
 
             return Ok(updatedTask);

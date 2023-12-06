@@ -50,48 +50,20 @@ namespace TP_CS.Data.Repositories
         }
 
 
-
         public BusinessResult<UserTask> UpdateTaskStatus(long taskId, bool isDone)
         {
-            try
+            var task = _dbContext.Tasks?.FirstOrDefault(t => t.Id == taskId);
+            if (task != null)
             {
-                var task = _dbContext.Tasks?.FirstOrDefault(t => t.Id == taskId);
-                if (task != null)
-                {
-                    if (task.Completed == isDone)
-                    {
-                        return BusinessResult<UserTask>.FromError("La tâche est déjà complétée.",
-                            BusinessErrorReason.BusinessRule);
-                    }
-
-                    task.Completed = isDone;
-                    int affected = _dbContext.SaveChanges();
-
-                    // Vérification du nombre d'entités affectées par SaveChanges
-                    if (affected > 0)
-                    {
-                        return BusinessResult<UserTask>.FromSuccess(task);
-                    }
-                    else
-                    {
-                        return BusinessResult<UserTask>.FromError("Aucune modification enregistrée.",
-                            BusinessErrorReason.BusinessRule);
-                    }
-                }
-                else
-                {
-                    return BusinessResult<UserTask>.FromError($"Tâche avec l'ID {taskId} introuvable.",
-                        BusinessErrorReason.NotFound);
-                }
+                task.Completed = isDone;
             }
-            catch (Exception)
+            else
             {
-                return BusinessResult<UserTask>.FromError(
-                    $"Erreur lors de la mise à jour de la tâche avec l'ID {taskId}.",
-                    BusinessErrorReason.BusinessRule);
+                throw new InvalidOperationException("Tâche introuvable");
             }
+            _dbContext.SaveChanges();
+            return BusinessResult<UserTask>.FromSuccess(task);
         }
-
 
         public IEnumerable<UserTask>? GetTasksByCompleted(bool completed)
         {
@@ -105,7 +77,8 @@ namespace TP_CS.Data.Repositories
 
         public IEnumerable<UserTask>? SearchTasks(string keyword)
         {
-            return _dbContext.Tasks?.AsEnumerable().Where(task => task.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            return _dbContext.Tasks?.AsEnumerable()
+                .Where(task => task.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
     }

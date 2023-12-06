@@ -75,7 +75,7 @@ namespace TP_CS.Controllers
             var updatedTask = _teamService.UpdateTeam(updatedTeam, id);
             if (updatedTask == null)
             {
-                return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
+                return NotFound($"Team avec l'ID {id} introuvable pour la mise à jour.");
             }
 
             return Ok(updatedTask);

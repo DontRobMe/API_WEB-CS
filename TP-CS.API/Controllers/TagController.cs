@@ -78,7 +78,7 @@ namespace TP_CS.Controllers
             var updatedTask = _tagService.UpdateTag(updatedTag, id);
             if (updatedTask == null)
             {
-                return NotFound($"Tâche avec l'ID {id} introuvable pour la mise à jour.");
+                return NotFound($"Etiquette avec l'ID {id} introuvable pour la mise à jour.");
             }
 
             return Ok(updatedTask);
