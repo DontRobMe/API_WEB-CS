@@ -1,8 +1,11 @@
 ﻿API Web pour Gestion de Projets
+ 
 Introduction
+
 Cette API web a été développée pour faciliter la gestion de projets en offrant des fonctionnalités pour la création de projets, de teams, d'utilisateurs, de tâches et de tags. Son objectif est de fournir une interface intuitive pour gérer ces entités tout en maintenant la cohérence des données.
 
 Utilisation sans soucis
+
 Pour une utilisation sans soucis, veuillez suivre l'ordre des opérations ci-dessous :
 
 Créer un Projet
