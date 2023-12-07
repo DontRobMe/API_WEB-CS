@@ -62,7 +62,8 @@ namespace TP_CS.Controllers
         {
             User userD = new User()
             {
-                Nom = user.Nom
+                Nom = user.Nom,
+                TeamId = user.TeamId
             };
             
             var updatedUser = _userService.UpdateUser(id, userD);

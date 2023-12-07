@@ -7,14 +7,13 @@ public class TeamDto
         public string Name { get; set; }
         public string Description { get; set; }
         public long projectId { get; set; }
-        public long LeaderUserId { get; set; }
-
     }
     
     public class UpdateTeamDto
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        
+        public long LeaderUserId { get; set; }
+
     }
 }
