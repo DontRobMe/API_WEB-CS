@@ -19,8 +19,8 @@ public class DatabaseProjectRepository : IProjectRepository
         return _dbContext.Projects?
             .Include(b => b.Teams)
             .ThenInclude(t => t.Users)
-            .Include(b => b.UserTasks)
-            .ThenInclude(t => t.Tags)
+            .ThenInclude(c => c.UserTasks)
+            .ThenInclude(d => d.Tags)
             .ToList();
     }
 
